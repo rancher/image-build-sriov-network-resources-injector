@@ -1,1 +1,1 @@
-# image-build-sriov-network-resources-injector
+# image-build-network-resources-injector
