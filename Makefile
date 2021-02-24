@@ -16,22 +16,22 @@ image-build:
 	docker build \
 		--build-arg ARCH=$(ARCH) \
 		--build-arg TAG=$(TAG) \
-		--tag $(ORG)/hardened-network-resources-injector:$(TAG) \
-		--tag $(ORG)/hardened-network-resources-injector:$(TAG)-$(ARCH) \
+		--tag $(ORG)/hardened-sriov-network-resources-injector:$(TAG) \
+		--tag $(ORG)/hardened-sriov-network-resources-injector:$(TAG)-$(ARCH) \
 	.
 
 .PHONY: image-push
 image-push:
-	docker push $(ORG)/hardened-network-resources-injector:$(TAG)-$(ARCH)
+	docker push $(ORG)/hardened-sriov-network-resources-injector:$(TAG)-$(ARCH)
 
 .PHONY: image-manifest
 image-manifest:
 	DOCKER_CLI_EXPERIMENTAL=enabled docker manifest create --amend \
-		$(ORG)/hardened-network-resources-injector:$(TAG) \
-		$(ORG)/hardened-network-resources-injector:$(TAG)-$(ARCH)
+		$(ORG)/hardened-sriov-network-resources-injector:$(TAG) \
+		$(ORG)/hardened-sriov-network-resources-injector:$(TAG)-$(ARCH)
 	DOCKER_CLI_EXPERIMENTAL=enabled docker manifest push \
-		$(ORG)/hardened-network-resources-injector:$(TAG)
+		$(ORG)/hardened-sriov-network-resources-injector:$(TAG)
 
 .PHONY: image-scan
 image-scan:
-	trivy --severity $(SEVERITIES) --no-progress --ignore-unfixed $(ORG)/hardened-network-resources-injector:$(TAG)
+	trivy --severity $(SEVERITIES) --no-progress --ignore-unfixed $(ORG)/hardened-sriov-network-resources-injector:$(TAG)
