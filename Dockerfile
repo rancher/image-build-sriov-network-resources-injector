@@ -15,7 +15,10 @@ RUN make
 
 # Create the network resources injector image
 FROM ${BCI_IMAGE}
-RUN zypper update -y && zypper install bash
+RUN zypper refresh && \
+    zypper update -y && \
+    zypper install -y gawk which && \
+    zypper clean -a
 WORKDIR /
 COPY --from=builder /go/network-resources-injector/bin/webhook /usr/bin/
 COPY --from=builder /go/network-resources-injector/bin/installer /usr/bin/
