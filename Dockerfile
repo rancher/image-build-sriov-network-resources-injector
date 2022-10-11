@@ -1,5 +1,5 @@
 ARG TAG="v1.5"
-ARG UBI_IMAGE=registry.access.redhat.com/ubi7/ubi-minimal:latest
+ARG BCI_IMAGE=registry.suse.com/bci/bci-base:15.3.17.20.12
 ARG GO_IMAGE=rancher/hardened-build-base:v1.18.5b7
 
 # Build the project
@@ -14,8 +14,11 @@ RUN git checkout tags/${TAG} -b ${TAG}
 RUN make
 
 # Create the network resources injector image
-FROM ${UBI_IMAGE}
-RUN microdnf update -y && microdnf install bash
+FROM ${BCI_IMAGE}
+RUN zypper refresh && \
+    zypper update -y && \
+    zypper install -y gawk which && \
+    zypper clean -a
 WORKDIR /
 COPY --from=builder /go/network-resources-injector/bin/webhook /usr/bin/
 COPY --from=builder /go/network-resources-injector/bin/installer /usr/bin/
