@@ -46,4 +46,4 @@ image-manifest:
 
 .PHONY: image-scan
 image-scan:
-	trivy --severity $(SEVERITIES) --no-progress --ignore-unfixed $(ORG)/hardened-sriov-network-resources-injector:$(TAG)
+	trivy image --severity $(SEVERITIES) --no-progress --ignore-unfixed $(ORG)/hardened-sriov-network-resources-injector:$(TAG)
