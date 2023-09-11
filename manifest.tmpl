@@ -1,0 +1,12 @@
+image: rancher/hardened-sriov-network-resources-injector:{{build.tag}}
+manifests:
+  -
+    image: rancher/hardened-sriov-network-resources-injector:{{build.tag}}-amd64
+    platform:
+      architecture: amd64
+      os: linux
+  -
+    image: rancher/hardened-sriov-network-resources-injector:{{build.tag}}-arm64
+    platform:
+      architecture: arm64
+      os: linux
