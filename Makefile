@@ -36,14 +36,6 @@ image-build:
 image-push:
 	docker push $(ORG)/hardened-sriov-network-resources-injector:$(TAG)-$(ARCH)
 
-.PHONY: image-manifest
-image-manifest:
-	DOCKER_CLI_EXPERIMENTAL=enabled docker manifest create --amend \
-		$(ORG)/hardened-sriov-network-resources-injector:$(TAG) \
-		$(ORG)/hardened-sriov-network-resources-injector:$(TAG)-$(ARCH)
-	DOCKER_CLI_EXPERIMENTAL=enabled docker manifest push \
-		$(ORG)/hardened-sriov-network-resources-injector:$(TAG)
-
 .PHONY: image-scan
 image-scan:
 	trivy image --severity $(SEVERITIES) --no-progress --ignore-unfixed $(ORG)/hardened-sriov-network-resources-injector:$(TAG)
