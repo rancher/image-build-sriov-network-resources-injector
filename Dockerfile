@@ -1,4 +1,5 @@
 ARG TAG="v1.5"
+ARG COMMIT="52f0664ffcf3b76344374426030b18158567ed40"
 ARG BCI_IMAGE=registry.suse.com/bci/bci-base
 ARG GO_IMAGE=rancher/hardened-build-base:v1.20.7b3
 
@@ -10,7 +11,7 @@ ARG TAG
 RUN git clone --depth=1 https://github.com/k8snetworkplumbingwg/network-resources-injector
 WORKDIR network-resources-injector
 RUN git fetch --all --tags --prune
-RUN git checkout tags/${TAG} -b ${TAG}
+RUN git checkout ${COMMIT} -b ${TAG}
 RUN make
 
 # Create the network resources injector image
