@@ -1,7 +1,7 @@
 ARG TAG="v1.5"
 ARG COMMIT="52f0664ffcf3b76344374426030b18158567ed40"
 ARG BCI_IMAGE=registry.suse.com/bci/bci-base
-ARG GO_IMAGE=rancher/hardened-build-base:v1.21.11b2
+ARG GO_IMAGE=rancher/hardened-build-base:v1.21.11b3
 
 # Image that provides cross compilation tooling.
 FROM --platform=$BUILDPLATFORM rancher/mirrored-tonistiigi-xx:1.3.0 as xx
