@@ -1,5 +1,3 @@
-ARG TAG="v1.5"
-ARG COMMIT="52f0664ffcf3b76344374426030b18158567ed40"
 ARG BCI_IMAGE=registry.suse.com/bci/bci-base
 ARG GO_IMAGE=rancher/hardened-build-base:v1.21.11b3
 
@@ -17,13 +15,13 @@ RUN set -x && \
 # Build the project
 FROM base-builder as builder
 #RUN apk add --update --virtual build-dependencies build-base linux-headers bash
-ARG TAG
+ARG TAG=v1.6.0
 ARG SRC="github.com/k8snetworkplumbingwg"
 ARG REPO_PATH="${SRC}/network-resources-injector"
 RUN git clone --depth=1 https://github.com/k8snetworkplumbingwg/network-resources-injector
 WORKDIR network-resources-injector
 RUN git fetch --all --tags --prune
-RUN git checkout ${COMMIT} -b ${TAG}
+RUN git checkout tags/${TAG} -b ${TAG}
 RUN go mod download
 ARG TARGETPLATFORM
 ENV CGO_ENABLED=0
