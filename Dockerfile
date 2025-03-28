@@ -2,9 +2,9 @@ ARG BCI_IMAGE=registry.suse.com/bci/bci-base
 ARG GO_IMAGE=rancher/hardened-build-base:v1.21.11b3
 
 # Image that provides cross compilation tooling.
-FROM --platform=$BUILDPLATFORM rancher/mirrored-tonistiigi-xx:1.5.0 as xx
+FROM --platform=$BUILDPLATFORM rancher/mirrored-tonistiigi-xx:1.5.0 AS xx
 
-FROM --platform=$BUILDPLATFORM ${GO_IMAGE} as base-builder
+FROM --platform=$BUILDPLATFORM ${GO_IMAGE} AS base-builder
 # copy xx scripts to your build stage
 COPY --from=xx / /
 RUN apk add file make git clang lld patch
@@ -13,7 +13,7 @@ RUN set -x && \
     xx-apk --no-cache add musl-dev gcc 
 
 # Build the project
-FROM base-builder as builder
+FROM base-builder AS builder
 #RUN apk add --update --virtual build-dependencies build-base linux-headers bash
 ARG TAG=v1.7.1
 ARG SRC="github.com/k8snetworkplumbingwg"
@@ -30,7 +30,7 @@ RUN xx-go --wrap &&\
     go build -ldflags "-s -w" -tags no_openssl "$@" ${REPO_PATH}/cmd/installer &&\
     go build -ldflags "-s -w" -tags no_openssl "$@" ${REPO_PATH}/cmd/webhook
 
-FROM ${GO_IMAGE} as strip_binary
+FROM ${GO_IMAGE} AS strip_binary
 #strip needs to run on TARGETPLATFORM, not BUILDPLATFORM
 COPY --from=builder /go/network-resources-injector/webhook /usr/bin/
 COPY --from=builder /go/network-resources-injector/installer /usr/bin/
