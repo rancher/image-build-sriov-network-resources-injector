@@ -44,6 +44,8 @@ RUN zypper refresh && \
     zypper install -y gawk which && \
     zypper clean -a
 WORKDIR /
+USER 1001
 COPY --from=strip_binary /usr/bin/webhook /usr/bin/
 COPY --from=strip_binary /usr/bin/installer /usr/bin/
-ENTRYPOINT ["webhook"]
+
+CMD ["webhook"]
