@@ -15,7 +15,7 @@ RUN set -x && \
 # Build the project
 FROM base-builder AS builder
 #RUN apk add --update --virtual build-dependencies build-base linux-headers bash
-ARG TAG=v1.7.1
+ARG TAG=v1.8.0
 ARG SRC="github.com/k8snetworkplumbingwg"
 ARG REPO_PATH="${SRC}/network-resources-injector"
 RUN git clone --depth=1 https://github.com/k8snetworkplumbingwg/network-resources-injector
